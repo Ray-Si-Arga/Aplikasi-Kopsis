@@ -378,11 +378,12 @@
             </div>
 
             <!-- Main Content Area -->
-            <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <div class="flex-1 flex flex-col overflow-hidden">
                 @yield('content')
             </div>
         </div>
     </div>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    @yield('script')
 </body>
 </html>
