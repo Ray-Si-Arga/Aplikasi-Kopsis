@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KopsisApp SMKN 9 Malang</title>
-    <link rel="icon" sizes="16x16" href="https://preview.redd.it/random-question-but-does-anyone-have-versions-of-this-cat-v0-ya8qikz9kn0f1.png?auto=webp&s=c2fdba9a3904ab3bec9e7367e380f66343c2929a">
+    <link rel="icon" sizes="16x16"
+        href="https://preview.redd.it/random-question-but-does-anyone-have-versions-of-this-cat-v0-ya8qikz9kn0f1.png?auto=webp&s=c2fdba9a3904ab3bec9e7367e380f66343c2929a">
     <style>
         * {
             margin: 0;
@@ -659,8 +660,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    {{--================= FILTER MINGGU BULAN TAHUN TIDAK BISA MENUNGGU DARI DATABASE =======================--}}
+    {{-- ================= FILTER MINGGU BULAN TAHUN TIDAK BISA  ======================= --}}
     <script>
         // Mobile menu
         const menuBtn = document.getElementById('menuBtn');
