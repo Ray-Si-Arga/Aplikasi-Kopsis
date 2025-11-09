@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 </head>
 
 <body>
@@ -33,7 +36,7 @@
             <!-- Sidebar untuk Desktop -->
             <aside class="hidden md:flex md:flex-col md:w-64 bg-white border-r border-gray-200">
                 <nav class="flex-1 px-4 py-4 space-y-2">
-                    <a href="#"
+                    <a href="/beranda"
                         class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg">
                         <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                             width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -57,7 +60,7 @@
                             </svg>
                         </summary>
                         <div class="pl-6 mt-1 space-y-1">
-                            <a href="#"
+                            <a href="/vendor"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -66,7 +69,7 @@
                                 </svg>
                                 Vendor
                             </a>
-                            <a href="#"
+                            <a href="/produk"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -92,7 +95,7 @@
                             </svg>
                         </summary>
                         <div class="pl-6 mt-1 space-y-1">
-                            <a href="#"
+                            <a href="/stok_terkini"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -101,7 +104,7 @@
                                 </svg>
                                 Stok Terkini
                             </a>
-                            <a href="#"
+                            <a href="/barang_masuk"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -110,7 +113,7 @@
                                 </svg>
                                 Barang Masuk
                             </a>
-                            <a href="#"
+                            <a href="/barang_keluar"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -135,7 +138,7 @@
                             </svg>
                         </summary>
                         <div class="pl-6 mt-1 space-y-1">
-                            <a href="#"
+                            <a href="/riwayat_transaksi"
                                 class="flex items-center     px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -160,7 +163,7 @@
                             </svg>
                         </summary>
                         <div class="pl-6 mt-1 space-y-1">
-                            <a href="#"
+                            <a href="/pengguna"
                                 class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                 <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                     width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -212,7 +215,7 @@
                     </div>
                     <!-- Konten Navigasi Mobile (sama dengan desktop) -->
                     <nav class="flex-1 px-4 py-4 space-y-2">
-                        <a href="#"
+                        <a href="/beranda"
                             class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg">
                             <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" height="24"
                                 width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -236,7 +239,7 @@
                                 </svg>
                             </summary>
                             <div class="pl-6 mt-1 space-y-1">
-                                <a href="#"
+                                <a href="/vendor"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -245,7 +248,7 @@
                                     </svg>
                                     Vendor
                                 </a>
-                                <a href="#"
+                                <a href="/produk"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -271,7 +274,7 @@
                                 </svg>
                             </summary>
                             <div class="pl-6 mt-1 space-y-1">
-                                <a href="#"
+                                <a href="/stok_terkini"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -280,7 +283,7 @@
                                     </svg>
                                     Stok Terkini
                                 </a>
-                                <a href="#"
+                                <a href="/barang_masuk"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -289,7 +292,7 @@
                                     </svg>
                                     Barang Masuk
                                 </a>
-                                <a href="#"
+                                <a href="/barang_keluar"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -314,7 +317,7 @@
                                 </svg>
                             </summary>
                             <div class="pl-6 mt-1 space-y-1">
-                                <a href="#"
+                                <a href="/riwayat_transaksi"
                                     class="flex items-center     px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -339,7 +342,7 @@
                                 </svg>
                             </summary>
                             <div class="pl-6 mt-1 space-y-1">
-                                <a href="#"
+                                <a href="/prngguna"
                                     class="flex items-center px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-50">
                                     <svg class="w-5 h-5 mr-3 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                                         height="24" width="24" viewBox="0 -960 960 960" fill="currentColor">
@@ -378,7 +381,7 @@
             </div>
 
             <!-- Main Content Area -->
-            <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex-1 flex flex-col overflow-y-auto">
                 @yield('content')
             </div>
         </div>
@@ -386,4 +389,5 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
     @yield('script')
 </body>
+
 </html>
