@@ -17,3 +17,7 @@ Route::get('/login', function () {
 Route::get('/beranda', function () {
     return view('app.beranda');
 });
+
+Route::get('/vendor', function () {
+    return view('app.vendor');
+});
