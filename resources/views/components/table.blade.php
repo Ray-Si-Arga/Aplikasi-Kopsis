@@ -55,11 +55,12 @@
 
 {{-- SCRIPT JAVASCRIPT/JQUERY UNTUK AJAX --}}
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Mendapatkan URL data dari properti component PHP
         const dataUrl = "{{ $dataUrl }}";
         // Base entity URL (remove /api prefix). Didefinisikan di scope yang lebih luas
         const entityBaseUrl = dataUrl.replace('/api', '');
+        console.log(entityBaseUrl);
         const tableBody = $('#table-body');
         const cardContainer = $('#card-view-container');
 
@@ -77,7 +78,9 @@
         let currentFilters = {}; // Menyimpan state filter saat ini
 
         function fetchData(page = 1, search = '', filters = {}) {
-            tableBody.html(`<tr><td colspan="${totalColumns}" class="text-center py-4 text-gray-500">Memuat data...</td></tr>`);
+            tableBody.html(
+                `<tr><td colspan="${totalColumns}" class="text-center py-4 text-gray-500">Memuat data...</td></tr>`
+                );
             cardContainer.html(`<div class="text-center py-4 text-gray-500">Memuat data...</div>`);
             paginationLinks.empty();
 
@@ -93,7 +96,7 @@
                 type: 'GET',
                 data: requestData,
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     // Cek apakah response menggunakan Laravel Pagination (data ada di response.data)
                     const data = response.data.data ? response.data.data : response.data;
                     const paginationMeta = response.data;
@@ -101,7 +104,7 @@
                     // 1. Render Tabel Desktop
                     let tableRows = '';
                     if (data.length > 0) {
-                        $.each(data, function (i, item) {
+                        $.each(data, function(i, item) {
                             // Membuat tombol aksi yang reusable (gunakan slot untuk isi)
                             const actionsHtml = `
                                 <div class="inline-block text-left relative">
@@ -110,26 +113,30 @@
                                     </button>
                                     <div id="dropdown-${item.id}" class="menu-dropdown hidden absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
                                         <a href="${entityBaseUrl}/${item.id}/edit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 delete-btn" data-id="${item.id}" data-url="${entityBaseUrl}">Delete</a>
+                                        <a href="" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 delete-btn" data-id="${item.id}" data-url="${entityBaseUrl}">Delete</a>
                                     </div>
                                 </div>
                             `;
 
                             // MEMBUAT BARIS SECARA DINAMIS
                             let dataCells = '';
-                            $.each(fieldKeys, function (j, key) {
+                            $.each(fieldKeys, function(j, key) {
                                 // Mengambil nilai dari objek item menggunakan field key
-                                dataCells += `<td class="px-6 py-4">${item[key] || '-'}</td>`;
+                                dataCells +=
+                                    `<td class="px-6 py-4">${item[key] || '-'}</td>`;
                             });
 
-                            tableRows += `<tr class="bg-white border-b" id="row-${item.id}">`;
+                            tableRows +=
+                                `<tr class="bg-white border-b" id="row-${item.id}">`;
                             tableRows += dataCells;
-                            tableRows += `<td class="px-6 py-4 text-right relative">${actionsHtml}</td>`;
+                            tableRows +=
+                                `<td class="px-6 py-4 text-right relative">${actionsHtml}</td>`;
                             tableRows += `</tr>`;
 
                         });
                     } else {
-                        tableRows = `<tr><td colspan="${totalColumns}" class="text-center py-4 text-gray-500">Tidak ada data ditemukan.</td></tr>`;
+                        tableRows =
+                            `<tr><td colspan="${totalColumns}" class="text-center py-4 text-gray-500">Tidak ada data ditemukan.</td></tr>`;
                     }
                     tableBody.html(tableRows);
 
@@ -137,7 +144,7 @@
                     // 2. Render Card Mobile
                     let cardHtml = '';
                     if (data.length > 0) {
-                        $.each(data, function (i, item) {
+                        $.each(data, function(i, item) {
                             // Sama seperti di desktop, gunakan item.id untuk dropdown
                             const actionsHtml = `
                                 <div class="relative">
@@ -153,7 +160,7 @@
 
                             // MEMBUAT BARIS DETAIL CARD SECARA DINAMIS
                             let cardDetails = '';
-                            $.each(fields, function (header, key) {
+                            $.each(fields, function(header, key) {
                                 cardDetails += `
                                     <div class="flex justify-between items-center">
                                         <dt class="font-semibold text-gray-800">${header}</dt>
@@ -175,7 +182,8 @@
                             `;
                         });
                     } else {
-                        cardHtml = `<div class="text-center py-4 text-gray-500">Tidak ada data ditemukan.</div>`;
+                        cardHtml =
+                            `<div class="text-center py-4 text-gray-500">Tidak ada data ditemukan.</div>`;
                     }
                     cardContainer.html(cardHtml);
 
@@ -202,20 +210,23 @@
                     // Re-attach event listeners untuk dropdown menu
                     attachMenuDropdownListeners();
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     // Gunakan totalColumns yang sudah didefinisikan di scope atas
-                    tableBody.html(`<tr><td colspan="${totalColumns}" class="text-center py-4 text-red-500">Gagal memuat data: ${xhr.statusText}</td></tr>`);
-                    cardContainer.html(`<div class="text-center py-4 text-red-500">Gagal memuat data.</div>`);
+                    tableBody.html(
+                        `<tr><td colspan="${totalColumns}" class="text-center py-4 text-red-500">Gagal memuat data: ${xhr.statusText}</td></tr>`
+                        );
+                    cardContainer.html(
+                        `<div class="text-center py-4 text-red-500">Gagal memuat data.</div>`);
                 }
             });
         }
 
         // 4. Implementasi Search dengan Debounce
         let searchTimeout = null;
-        searchInput.on('keyup', function () {
+        searchInput.on('keyup', function() {
             clearTimeout(searchTimeout);
             const query = $(this).val();
-            searchTimeout = setTimeout(function () {
+            searchTimeout = setTimeout(function() {
                 currentSearch = query;
                 currentPage = 1;
                 fetchData(currentPage, currentSearch, currentFilters);
@@ -223,7 +234,7 @@
         });
 
         // 5. Implementasi Pindah Halaman
-        $(document).on('click', '.pagination-link', function (e) {
+        $(document).on('click', '.pagination-link', function(e) {
             e.preventDefault();
             const page = $(this).data('page');
             if (!$(this).prop('disabled')) {
@@ -233,24 +244,28 @@
         });
 
         // 6. Implementasi Tombol Aksi (Delete Example)
-        $(document).on('click', '.delete-btn', function (e) {
+        $(document).on('click', '.delete-btn', function(e) {
             e.preventDefault();
             const itemId = $(this).data('id');
             // Ambil URL dari atribut tombol jika ada, kalau tidak gunakan entityBaseUrl sebagai fallback
             const entityUrl = $(this).data('url') || entityBaseUrl; // Mengambil URL entitas dari tombol
+            const apiUrl = entityUrl.replace(
+                /^(https?:\/\/[^/]+)(\/.*)?$/,
+                (_, host, path = '') => `${host}/api${path}`
+            );
             if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
                 $.ajax({
-                    url: `${entityUrl}/${itemId}`, // Menggunakan URL dinamis
+                    url: `${apiUrl}/${itemId}`, // Menggunakan URL dinamis
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function () {
+                    success: function() {
                         $(`#row-${itemId}`).remove();
                         $(`#card-${itemId}`).remove();
                         alert('Item berhasil dihapus!');
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         alert('Gagal menghapus item! ' + (xhr.responseJSON?.message || ''));
                     }
                 });
@@ -354,7 +369,7 @@
 
         function throttle(func, limit) {
             let inThrottle;
-            return function () {
+            return function() {
                 const args = arguments;
                 const context = this;
                 if (!inThrottle) {
@@ -395,7 +410,7 @@
         // 8. Implementasi Form Filter
         const filterForm = $('#filter-form');
 
-        filterForm.on('submit', function (e) {
+        filterForm.on('submit', function(e) {
             e.preventDefault();
             const formData = $(this).serializeArray();
             let filters = {};
@@ -409,14 +424,16 @@
                 }
             });
 
-            currentFilters = { filter: filters }; // Simpan state filter
+            currentFilters = {
+                filter: filters
+            }; // Simpan state filter
             currentPage = 1;
             fetchData(currentPage, currentSearch, currentFilters);
             closeAllDropdowns(); // Tutup dropdown setelah apply
         });
 
         // Tombol Reset Filter
-        $('#reset-filter-btn').on('click', function () {
+        $('#reset-filter-btn').on('click', function() {
             filterForm[0].reset(); // Reset form
             currentFilters = {}; // Hapus state filter
             currentPage = 1;
